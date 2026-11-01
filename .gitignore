@@ -1,0 +1,38 @@
+# Virtual Environments
+venv/
+venv*/
+env/
+.env
+
+# PyTorch / Training Datasets (Keep repository lightweight)
+ml/dataset/
+*.pth.tar
+
+# Python cache
+__pycache__/
+*.py[cod]
+*$py.class
+.pytest_cache/
+
+# User data
+users_db.json
+*.log
+
+# Frontend dependencies
+frontend/node_modules/
+
+# Frontend build files
+frontend/dist/
+frontend/build/
+
+# Python environment
+python311/
+
+# IDE settings
+.vscode/
+
+# Installer
+python-installer.exe
+
+# Scratch files
+scratch/

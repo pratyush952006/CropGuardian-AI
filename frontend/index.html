@@ -1,0 +1,1009 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>CropGuardian AI — Next-Gen Precision Plant Pathology & Agronomic Intelligence</title>
+  <meta name="description" content="Instant AI-powered crop disease diagnosis, pathogen classification, and tailored agronomic treatment plans across 38 conditions and 14 crops." />
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🌿</text></svg>" />
+
+  <!-- Google Fonts: Plus Jakarta Sans, Outfit, JetBrains Mono -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800;900&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet" />
+
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <!-- Ambient Dynamic Canvas Background -->
+  <canvas id="particle-canvas" aria-hidden="true"></canvas>
+  <div class="glow-orb orb-top-left" aria-hidden="true"></div>
+  <div class="glow-orb orb-top-right" aria-hidden="true"></div>
+  <div class="glow-orb orb-center" aria-hidden="true"></div>
+
+  <!-- ── NAVIGATION BAR ── -->
+  <header class="navbar" id="navbar">
+    <div class="nav-content">
+      <a href="#" class="nav-brand" aria-label="CropGuardian Home">
+        <div class="brand-symbol">
+          <span class="symbol-leaf">🌿</span>
+          <div class="symbol-ring"></div>
+        </div>
+        <div class="brand-text">
+          <span class="nav-name">CropGuardian</span>
+          <span class="nav-edition">AI 2.0</span>
+        </div>
+      </a>
+
+      <nav class="nav-links">
+        <a href="#about" class="nav-link active">About Platform</a>
+        <a href="#specimen-3d" class="nav-link">🔬 3D Leaf Lab</a>
+        <a href="#crop-directory" class="nav-link">Crop & Symptoms</a>
+        <a href="#analyzer" class="nav-link">AI Pathology Scanner</a>
+        <a href="#samples" class="nav-link">Sample Lab</a>
+        <a href="#workflow" class="nav-link">Workflow</a>
+      </nav>
+
+      <div class="nav-actions">
+        <!-- Language Selector Dropdown -->
+        <div class="lang-selector-wrapper">
+          <span class="lang-icon">🌐</span>
+          <select id="global-language-select" class="lang-select" aria-label="Select Language">
+            <option value="en" selected>English</option>
+            <option value="hi">हिंदी (Hindi)</option>
+            <option value="bn">বাংলা (Bengali)</option>
+            <option value="te">తెలుగు (Telugu)</option>
+            <option value="mr">मराठी (Marathi)</option>
+            <option value="ta">தமிழ் (Tamil)</option>
+            <option value="gu">ગુજરાતી (Gujarati)</option>
+            <option value="kn">ಕನ್ನಡ (Kannada)</option>
+            <option value="pa">ਪੰਜਾਬੀ (Punjabi)</option>
+            <option value="ml">മലയാളം (Malayalam)</option>
+            <option value="es">Español (Spanish)</option>
+            <option value="fr">Français (French)</option>
+            <option value="pt">Português (Portuguese)</option>
+            <option value="ar">العربية (Arabic)</option>
+            <option value="zh-CN">中文 (Chinese)</option>
+            <option value="ru">Русский (Russian)</option>
+            <option value="sw">Kiswahili</option>
+          </select>
+        </div>
+
+        <!-- Live AI Telemetry Pill -->
+        <div id="mode-badge" class="mode-badge mode-demo" title="Server Connection & Model State">
+          <span class="mode-dot"></span>
+          <span id="mode-text">Connecting...</span>
+        </div>
+
+        <!-- Scan History Trigger -->
+        <button id="history-toggle-btn" class="icon-action-btn" aria-label="Open Scan History" title="View Recent Scans">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <circle cx="12" cy="12" r="10"></circle>
+            <polyline points="12 6 12 12 16 14"></polyline>
+          </svg>
+          <span id="history-counter" class="badge-counter" style="display:none">0</span>
+        </button>
+
+        <!-- User Authentication Button / Profile Badge -->
+        <div id="auth-nav-slot">
+          <button id="nav-login-btn" class="btn-nav-auth">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+              <circle cx="12" cy="7" r="4"></circle>
+            </svg>
+            <span>Sign In</span>
+          </button>
+        </div>
+
+        <a href="#analyzer" class="btn-nav-cta">
+          <span>Start Scan</span>
+          <span class="cta-arrow">→</span>
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <!-- ── STARTING PAGE / HERO SECTION WITH USER TAGLINE ── -->
+  <section class="starting-hero" id="about">
+    <div class="starting-container">
+      
+      <!-- Top Eyebrow Badge -->
+      <div class="starting-badge">
+        <span class="badge-dot"></span>
+        <span>AI-Powered Agronomic Defense System</span>
+      </div>
+
+      <!-- Exact User Tagline -->
+      <h1 class="starting-tagline">
+        <span class="tagline-line">Detect Early.</span>
+        <span class="tagline-line gradient">Predict Smarter.</span>
+        <span class="tagline-line">Act Faster.</span>
+      </h1>
+
+      <!-- Why It Was Made & How It Helps -->
+      <p class="starting-lead">
+        CropGuardian was engineered to protect smallholder farmers, agronomists, and commercial growers from catastrophic yield loss caused by plant diseases. Over <strong>30% of global food harvest is lost each year</strong> to plant pathogens. Our platform bridges the critical diagnosis gap—delivering laboratory-grade pathology directly to the field in seconds.
+      </p>
+
+      <div class="starting-actions">
+        <a href="#analyzer" class="btn-primary-start">
+          <span>⚡ Diagnose Crop Leaf Now</span>
+          <span class="btn-arrow">→</span>
+        </a>
+        <a href="#crop-directory" class="btn-secondary-start">
+          <span>📚 Explore Disease Directory</span>
+        </a>
+      </div>
+
+      <!-- 3 Value Pillars: Why & How It Helps -->
+      <div class="starting-pillars-grid">
+        <div class="pillar-card">
+          <div class="pillar-icon green">🎯</div>
+          <h3>Why It Was Made</h3>
+          <p>Traditional agricultural pathology requires laboratory culture tests taking 5–10 days. By the time symptoms are confirmed, fungal mycelium and bacterial blights have already spread across entire farm acres. CropGuardian solves this with instant vision AI.</p>
+          <div class="pillar-highlight">Stops epidemics before harvest loss</div>
+        </div>
+
+        <div class="pillar-card">
+          <div class="pillar-icon amber">🔬</div>
+          <h3>How This Website Helps</h3>
+          <p>Simply snap or upload a photo of an affected leaf. MobileNetV3 deep convolutional neural networks identify microscopic chlorosis, pustules, and necrosis spots across <strong>38 diseases and 14 crops</strong> with high precision.</p>
+          <div class="pillar-highlight">Sub-second inference & heatmap localization</div>
+        </div>
+
+        <div class="pillar-card">
+          <div class="pillar-icon blue">💊</div>
+          <h3>Immediate Actionable Rx</h3>
+          <p>Diagnosis is only half the battle. CropGuardian generates comprehensive curative prescriptions—offering biological organic controls, exact chemical active ingredients with dosage guidelines, and preventative rotation schedules.</p>
+          <div class="pillar-highlight">Bilingual organic & chemical treatment plans</div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ── REAL 3D HEALTHY LEAF SPECIMEN (AFTER 1ST PAGE) ── -->
+  <section class="section leaf-3d-section" id="specimen-3d">
+    <div class="section-container">
+      <div class="section-header text-center">
+        <span class="section-eyebrow">Real Botanical Specimen</span>
+        <h2>Interactive 3D Healthy Leaf</h2>
+        <p>A true-to-life 3D healthy botanical leaf model with authentic cellular venation, organic curvature, and physical light response. Click and drag in any direction to rotate 360°, scroll to zoom in close, or explore its natural structure.</p>
+      </div>
+
+      <div class="leaf-3d-wrapper">
+        <div class="leaf-3d-canvas-container" id="leaf-3d-container">
+          <!-- WebGL Three.js Canvas will be appended here -->
+          <div class="leaf-3d-overlay-ui">
+            <div class="leaf-3d-hint">
+              <span class="hint-icon">🔄</span>
+              <span>Click &amp; drag to rotate in any direction • Scroll to zoom</span>
+            </div>
+            <div class="leaf-3d-controls">
+              <button class="leaf-ctrl-btn active" id="btn-leaf-autorotate" title="Toggle Auto-Spin">
+                <span id="rotate-icon">⏸️</span>
+                <span>Auto-Spin</span>
+              </button>
+              <button class="leaf-ctrl-btn" id="btn-leaf-reset" title="Reset View">
+                <span>🎯 Reset View</span>
+              </button>
+            </div>
+          </div>
+          <div class="leaf-3d-stats">
+            <span class="specimen-tag">🍃 Real Healthy Botanical Leaf</span>
+            <span class="specimen-tag">PBR Photorealistic Shading</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── CROP DISEASE & SYMPTOMS KNOWLEDGE DIRECTORY ── -->
+  <section class="section crop-directory-section" id="crop-directory">
+    <div class="section-container">
+      <div class="section-header text-center">
+        <span class="section-eyebrow">Botanical Pathology Library</span>
+        <h2>Crops, Disease Names & Diagnostic Symptoms</h2>
+        <p>Comprehensive guide to primary agricultural crops, their devastating pathogens, and physical symptom markers to look for in the field.</p>
+      </div>
+
+      <!-- Crop Selector Tabs -->
+      <div class="directory-filter-bar">
+        <button class="dir-filter-btn active" data-crop="all">All Crops</button>
+        <button class="dir-filter-btn" data-crop="Tomato">🍅 Tomato</button>
+        <button class="dir-filter-btn" data-crop="Corn">🌽 Corn (Maize)</button>
+        <button class="dir-filter-btn" data-crop="Apple">🍎 Apple</button>
+        <button class="dir-filter-btn" data-crop="Onion">🧅 Onion</button>
+        <button class="dir-filter-btn" data-crop="Wheat">🌾 Wheat</button>
+        <button class="dir-filter-btn" data-crop="Mustard">🌼 Mustard</button>
+        <button class="dir-filter-btn" data-crop="Mango">🥭 Mango</button>
+        <button class="dir-filter-btn" data-crop="Potato">🥔 Potato</button>
+        <button class="dir-filter-btn" data-crop="Strawberry">🍓 Strawberry</button>
+        <button class="dir-filter-btn" data-crop="Grape">🍇 Grape</button>
+      </div>
+
+      <!-- Directory Cards Grid -->
+      <div class="directory-cards-grid" id="directory-cards-grid">
+        <!-- Dynamically rendered via app.js & pre-populated with top crops -->
+      </div>
+    </div>
+  </section>
+
+  <!-- ── HOW IT WORKS / PIPELINE ── -->
+  <section class="section workflow-section" id="workflow">
+    <div class="section-container">
+      <div class="section-header">
+        <span class="section-eyebrow">Diagnostic Pipeline</span>
+        <h2>How CropGuardian AI Works</h2>
+        <p>From raw photo to validated agronomic prescription in three neural steps</p>
+      </div>
+
+      <div class="pipeline-grid">
+        <div class="pipeline-card">
+          <div class="pipeline-chip">STEP 01</div>
+          <div class="pipeline-icon-wrap">
+            <span class="pipeline-icon">📸</span>
+          </div>
+          <h3>Leaf Capture & Standardization</h3>
+          <p>Image is normalized, orientation-corrected via EXIF, resized to 224×224, and standardized with ImageNet color balance.</p>
+          <div class="pipeline-badge">Tensor Normalization</div>
+        </div>
+
+        <div class="pipeline-connector" aria-hidden="true">
+          <div class="connector-line"></div>
+          <span class="connector-arrow">→</span>
+        </div>
+
+        <div class="pipeline-card active-card">
+          <div class="pipeline-chip">STEP 02</div>
+          <div class="pipeline-icon-wrap">
+            <span class="pipeline-icon">🧠</span>
+          </div>
+          <h3>Deep CNN Pathology Inference</h3>
+          <p>EfficientNetV2-S extracts fused hierarchical features, analyzing chlorosis, necrosis, lesion boundaries, and fungal pustules.</p>
+          <div class="pipeline-badge">Softmax Classification</div>
+        </div>
+
+        <div class="pipeline-connector" aria-hidden="true">
+          <div class="connector-line"></div>
+          <span class="connector-arrow">→</span>
+        </div>
+
+        <div class="pipeline-card">
+          <div class="pipeline-chip">STEP 03</div>
+          <div class="pipeline-icon-wrap">
+            <span class="pipeline-icon">💊</span>
+          </div>
+          <h3>Agronomic Rx & Prevention</h3>
+          <p>Instant expert agronomic guidance: organic bio-controls, chemical active ingredients with dosage, and crop rotation schedules.</p>
+          <div class="pipeline-badge">Full Treatment Plan</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── DIAGNOSTIC STUDIO WORKSPACE ── -->
+  <section class="section analyzer-section" id="analyzer">
+    <div class="section-container">
+      <div class="section-header">
+        <span class="section-eyebrow">Interactive Studio</span>
+        <h2>Precision Plant Pathology Lab</h2>
+        <p>Drop a plant leaf photo, capture from camera, or select a sample from our diverse crop collection</p>
+      </div>
+
+      <!-- ── SUPPORTED CROPS & PATHOLOGY CATALOG NOTICE MODAL / PROMPT BANNER ── -->
+      <div class="supported-crops-notice" id="supported-crops-notice">
+        <div class="notice-header">
+          <div class="notice-title">
+            <span class="notice-icon">🔬</span>
+            <strong>Supported Botanical Coverage: 14 Crops &amp; 38 Pathologies</strong>
+          </div>
+          <button class="notice-close-btn" onclick="document.getElementById('supported-crops-notice').hidden=true" title="Dismiss Notice">✕</button>
+        </div>
+
+        <p class="notice-intro">
+          ⚠️ <strong>Notice Before Scanning:</strong> The vision neural network is currently trained and calibrated <em>specifically for the leaves of the following crops</em> and their documented diseases/bacteria/viruses. Leaves from outside this botanical list (such as Onion, Wheat, Mustard, Mango) will not yield accurate neural classification.
+        </p>
+
+        <!-- Collapsible/Detailed breakdown of crops & conditions -->
+        <div class="crops-detailed-catalog">
+          <div class="catalog-crop-item">
+            <span class="crop-badge-header">🍎 Apple (4 Conditions)</span>
+            <span class="crop-diseases-tags">Apple Scab, Black Rot (Physalospora), Cedar Apple Rust, Healthy Foliage</span>
+          </div>
+          <div class="catalog-crop-item">
+            <span class="crop-badge-header">🫐 Blueberry (1 Condition)</span>
+            <span class="crop-diseases-tags">Healthy Foliage</span>
+          </div>
+          <div class="catalog-crop-item">
+            <span class="crop-badge-header">🍒 Cherry (2 Conditions)</span>
+            <span class="crop-diseases-tags">Powdery Mildew (Podosphaera), Healthy Foliage</span>
+          </div>
+          <div class="catalog-crop-item">
+            <span class="crop-badge-header">🌽 Corn / Maize (4 Conditions)</span>
+            <span class="crop-diseases-tags">Gray Leaf Spot (Cercospora), Common Rust (Puccinia sorghi), Northern Leaf Blight (Exserohilum), Healthy Foliage</span>
+          </div>
+          <div class="catalog-crop-item">
+            <span class="crop-badge-header">🍇 Grape (4 Conditions)</span>
+            <span class="crop-diseases-tags">Black Rot (Guignardia), Esca / Black Measles, Leaf Blight (Isariopsis), Healthy Foliage</span>
+          </div>
+          <div class="catalog-crop-item">
+            <span class="crop-badge-header">🍊 Orange / Citrus (1 Condition)</span>
+            <span class="crop-diseases-tags">Huanglongbing / Citrus Greening (Candidatus Liberibacter bacterial disease)</span>
+          </div>
+          <div class="catalog-crop-item">
+            <span class="crop-badge-header">🍑 Peach (2 Conditions)</span>
+            <span class="crop-diseases-tags">Bacterial Spot (Xanthomonas arboricola), Healthy Foliage</span>
+          </div>
+          <div class="catalog-crop-item">
+            <span class="crop-badge-header">🫑 Bell Pepper (2 Conditions)</span>
+            <span class="crop-diseases-tags">Bacterial Spot (Xanthomonas campestris), Healthy Foliage</span>
+          </div>
+          <div class="catalog-crop-item">
+            <span class="crop-badge-header">🥔 Potato (3 Conditions)</span>
+            <span class="crop-diseases-tags">Early Blight (Alternaria solani), Late Blight (Phytophthora infestans), Healthy Foliage</span>
+          </div>
+          <div class="catalog-crop-item">
+            <span class="crop-badge-header">🍓 Raspberry (1 Condition)</span>
+            <span class="crop-diseases-tags">Healthy Foliage</span>
+          </div>
+          <div class="catalog-crop-item">
+            <span class="crop-badge-header">🌱 Soybean (1 Condition)</span>
+            <span class="crop-diseases-tags">Healthy Foliage</span>
+          </div>
+          <div class="catalog-crop-item">
+            <span class="crop-badge-header">🎃 Squash (1 Condition)</span>
+            <span class="crop-diseases-tags">Powdery Mildew (Erysiphe cichoracearum)</span>
+          </div>
+          <div class="catalog-crop-item">
+            <span class="crop-badge-header">🍓 Strawberry (2 Conditions)</span>
+            <span class="crop-diseases-tags">Leaf Scorch (Diplocarpon earlianum), Healthy Foliage</span>
+          </div>
+          <div class="catalog-crop-item highlight-crop">
+            <span class="crop-badge-header">🍅 Tomato (10 Conditions)</span>
+            <span class="crop-diseases-tags">Bacterial Spot, Early Blight, Late Blight, Leaf Mold, Septoria Leaf Spot, Two-Spotted Spider Mites, Target Spot, Tomato Yellow Leaf Curl Virus, Mosaic Virus, Healthy Foliage</span>
+          </div>
+        </div>
+
+        <p class="notice-note">💡 Please inspect that your uploaded leaf belongs to one of the 14 species above before scanning.</p>
+      </div>
+
+      <!-- Studio Grid -->
+      <div class="studio-layout">
+        <!-- Left: Upload & Input Console -->
+        <div class="studio-panel input-panel">
+          <div class="panel-header">
+            <div class="input-tabs" role="tablist">
+              <button class="input-tab active" id="tab-upload" role="tab" aria-selected="true">
+                <span>📁 Upload Photo</span>
+              </button>
+              <button class="input-tab" id="tab-camera" role="tab" aria-selected="false">
+                <span>📷 Live Camera</span>
+              </button>
+            </div>
+            <span class="panel-hint">Supports JPG, PNG, WEBP (Max 15MB)</span>
+          </div>
+
+          <!-- Drop Zone View -->
+          <div id="upload-mode-container">
+            <div
+              id="drop-zone"
+              class="drop-zone"
+              role="button"
+              tabindex="0"
+              aria-label="Upload leaf image for disease diagnosis"
+            >
+              <div class="drop-zone-content" id="drop-content">
+                <div class="drop-icon-sphere">
+                  <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+                    <path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/>
+                    <polyline points="17 8 12 3 7 8"/>
+                    <line x1="12" y1="3" x2="12" y2="15"/>
+                  </svg>
+                </div>
+                <h4 class="drop-headline">Drag & Drop Plant Leaf Photo</h4>
+                <p class="drop-subtext">or <span class="drop-highlight">browse local files</span></p>
+                <div class="drop-tags">
+                  <span class="drop-tag">🌿 Healthy or Diseased</span>
+                  <span class="drop-tag">☀️ Bright Daylight Recommended</span>
+                </div>
+              </div>
+
+              <!-- Image Preview Container -->
+              <div class="drop-zone-preview" id="drop-preview" hidden>
+                <img id="preview-img" src="" alt="Uploaded leaf preview" />
+                <div class="preview-overlay-bar">
+                  <span id="preview-filename" class="preview-fn">leaf_sample.jpg</span>
+                  <div class="preview-actions">
+                    <button class="btn-toggle-heatmap" id="btn-toggle-heatmap" title="Toggle AI Heatmap Attention Layer">
+                      <span class="heatmap-icon">🔥</span>
+                      <span>Heatmap</span>
+                    </button>
+                    <button class="preview-remove-btn" id="remove-btn" title="Remove image" aria-label="Remove image">✕</button>
+                  </div>
+                </div>
+                <!-- Simulated Grad-CAM Heatmap Overlay Canvas -->
+                <canvas id="heatmap-canvas" class="heatmap-canvas" hidden></canvas>
+              </div>
+            </div>
+            <input type="file" id="file-input" accept="image/jpeg,image/png,image/jpg,image/webp" hidden aria-hidden="true" multiple />
+          </div>
+
+          <!-- Camera Stream Container -->
+          <div id="camera-mode-container" class="camera-container" hidden>
+            <div class="camera-stream-wrapper">
+              <video id="camera-stream" autoplay playsinline></video>
+              <div class="camera-scanner-frame">
+                <div class="corner-bracket tl"></div>
+                <div class="corner-bracket tr"></div>
+                <div class="corner-bracket bl"></div>
+                <div class="corner-bracket br"></div>
+                <div class="camera-target-crosshair">+</div>
+              </div>
+            </div>
+            <div class="camera-controls">
+              <button id="btn-snap-photo" class="btn-snap">
+                <span class="snap-inner-circle"></span>
+              </button>
+              <button id="btn-close-camera" class="btn-camera-cancel">Cancel Camera</button>
+            </div>
+          </div>
+
+          <!-- Analyze Action Button -->
+          <button id="analyze-btn" class="analyze-btn" disabled aria-label="Run AI Disease Diagnosis">
+            <span class="btn-shine"></span>
+            <span id="analyze-btn-icon" class="analyze-icon">⚡</span>
+            <span id="analyze-btn-text">Select a Leaf Image First</span>
+            <div class="btn-spinner" id="btn-spinner" hidden aria-hidden="true"></div>
+          </button>
+
+          <!-- ── SMART SAMPLES REPOSITORY (ALL CROPS - FIXED POTATO BUG) ── -->
+          <div class="sample-section" id="samples">
+            <div class="sample-header">
+              <div class="sample-title-group">
+                <span class="sample-label">⚡ Rapid Test Samples</span>
+                <span class="sample-desc">Click any crop below to test immediate AI diagnosis:</span>
+              </div>
+              <span class="sample-count-badge">8 Scenarios</span>
+            </div>
+
+            <div class="sample-grid">
+              <!-- Tomato Late Blight -->
+              <button class="sample-card" data-sample="tomato_blight" aria-label="Test Tomato Late Blight">
+                <span class="sample-emoji">🍅</span>
+                <div class="sample-info">
+                  <span class="sample-crop">Tomato</span>
+                  <span class="sample-disease">Late Blight</span>
+                </div>
+                <span class="sample-tag critical">Critical</span>
+              </button>
+
+              <!-- Potato Early Blight -->
+              <button class="sample-card" data-sample="potato_disease" aria-label="Test Potato Early Blight">
+                <span class="sample-emoji">🥔</span>
+                <div class="sample-info">
+                  <span class="sample-crop">Potato</span>
+                  <span class="sample-disease">Early Blight</span>
+                </div>
+                <span class="sample-tag medium">Medium</span>
+              </button>
+
+              <!-- Corn Common Rust -->
+              <button class="sample-card" data-sample="corn_rust" aria-label="Test Corn Common Rust">
+                <span class="sample-emoji">🌽</span>
+                <div class="sample-info">
+                  <span class="sample-crop">Corn (Maize)</span>
+                  <span class="sample-disease">Common Rust</span>
+                </div>
+                <span class="sample-tag medium">Medium</span>
+              </button>
+
+              <!-- Apple Scab -->
+              <button class="sample-card" data-sample="apple_scab" aria-label="Test Apple Scab">
+                <span class="sample-emoji">🍎</span>
+                <div class="sample-info">
+                  <span class="sample-crop">Apple</span>
+                  <span class="sample-disease">Apple Scab</span>
+                </div>
+                <span class="sample-tag medium">Medium</span>
+              </button>
+
+              <!-- Grape Black Rot -->
+              <button class="sample-card" data-sample="grape_rot" aria-label="Test Grape Black Rot">
+                <span class="sample-emoji">🍇</span>
+                <div class="sample-info">
+                  <span class="sample-crop">Grape</span>
+                  <span class="sample-disease">Black Rot</span>
+                </div>
+                <span class="sample-tag high">High</span>
+              </button>
+
+              <!-- Bell Pepper Bacterial Spot -->
+              <button class="sample-card" data-sample="pepper_spot" aria-label="Test Pepper Bacterial Spot">
+                <span class="sample-emoji">🫑</span>
+                <div class="sample-info">
+                  <span class="sample-crop">Bell Pepper</span>
+                  <span class="sample-disease">Bacterial Spot</span>
+                </div>
+                <span class="sample-tag high">High</span>
+              </button>
+
+              <!-- Peach Bacterial Spot -->
+              <button class="sample-card" data-sample="peach_spot" aria-label="Test Peach Bacterial Spot">
+                <span class="sample-emoji">🍑</span>
+                <div class="sample-info">
+                  <span class="sample-crop">Peach</span>
+                  <span class="sample-disease">Bacterial Spot</span>
+                </div>
+                <span class="sample-tag high">High</span>
+              </button>
+
+              <!-- Healthy Plant -->
+              <button class="sample-card" data-sample="healthy_leaf" aria-label="Test 100% Healthy Plant">
+                <span class="sample-emoji">🌿</span>
+                <div class="sample-info">
+                  <span class="sample-crop">Tomato / Corn</span>
+                  <span class="sample-disease">100% Healthy Leaf</span>
+                </div>
+                <span class="sample-tag healthy">Healthy</span>
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Right: Diagnostic Intelligence Results Panel -->
+        <div class="studio-panel output-panel" id="results-panel">
+          <!-- State 1: Awaiting Analysis (Empty State) -->
+          <div id="empty-state" class="empty-state-card">
+            <div class="empty-scanner-graphic">
+              <div class="empty-ring-1"></div>
+              <div class="empty-ring-2"></div>
+              <span class="empty-botanical-icon">🌱</span>
+            </div>
+            <h3>Awaiting Plant Sample</h3>
+            <p>Upload a leaf image or click any of the 8 sample conditions above to trigger instant pathology classification and prescription.</p>
+            <div class="empty-features-list">
+              <div class="feat-pill">✓ Pathogen Taxonomy</div>
+              <div class="feat-pill">✓ Dual Rx (Bio & Chem)</div>
+              <div class="feat-pill">✓ Audio Speech Output</div>
+            </div>
+          </div>
+
+          <!-- State 2: Neural Loading Animation State -->
+          <div id="loading-state" class="loading-state-card" hidden aria-live="polite">
+            <div class="neural-spinner-wrap">
+              <div class="ring-pulse-outer"></div>
+              <div class="ring-pulse-mid"></div>
+              <div class="ring-pulse-inner"></div>
+              <span class="loading-botanical-icon">🔬</span>
+            </div>
+
+            <h3 class="loading-headline">Processing Pathology...</h3>
+            <p id="loading-step" class="loading-substep">Initializing neural weights</p>
+
+            <!-- Multi-stage Telemetry Progress Bar -->
+            <div class="neural-stepper">
+              <div class="nstep active" id="lstep-1">
+                <span class="nstep-indicator">1</span>
+                <span class="nstep-title">Preprocessing Tensor</span>
+              </div>
+              <div class="nstep" id="lstep-2">
+                <span class="nstep-indicator">2</span>
+                <span class="nstep-title">CNN Feature Extraction</span>
+              </div>
+              <div class="nstep" id="lstep-3">
+                <span class="nstep-indicator">3</span>
+                <span class="nstep-title">Pathogen Classification</span>
+              </div>
+              <div class="nstep" id="lstep-4">
+                <span class="nstep-indicator">4</span>
+                <span class="nstep-title">Synthesizing Treatment Rx</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- State 3: Diagnostic Results Card View -->
+          <div id="result-state" class="result-state-card" hidden>
+            <!-- Primary Diagnosis Banner -->
+            <div class="diagnosis-hero-box">
+              <div class="diagnosis-top-row">
+                <!-- Crop name badge hidden: show disease + solution only -->
+                <div class="diagnosis-status-group">
+                  <div id="result-severity-badge" class="result-severity severity-critical">CRITICAL SEVERITY</div>
+                  <button id="btn-speak-diagnosis" class="btn-icon-round" title="Read Diagnosis Aloud" aria-label="Read Diagnosis Aloud">
+                    <span id="speak-icon">🔊</span>
+                  </button>
+                </div>
+              </div>
+
+              <div class="diagnosis-title-row">
+                <div>
+                  <h3 id="result-disease-name" class="diagnosis-disease-name">Late Blight</h3>
+                  <div id="result-pathogen" class="diagnosis-pathogen">Phytophthora infestans (Oomycete)</div>
+                </div>
+
+                <!-- Animated SVG Confidence Progress Ring -->
+                <div class="confidence-ring-container">
+                  <svg class="confidence-svg" width="90" height="90" viewBox="0 0 100 100">
+                    <circle class="ring-bg" cx="50" cy="50" r="42"></circle>
+                    <circle id="confidence-circle" class="ring-fill" cx="50" cy="50" r="42"></circle>
+                  </svg>
+                  <div class="ring-inner-text">
+                    <span id="result-confidence" class="ring-pct">98.5%</span>
+                    <span class="ring-caption">Confidence</span>
+                  </div>
+                </div>
+              </div>
+
+              <p id="result-description" class="diagnosis-description">
+                Late blight is one of the most destructive diseases in history, causing rapid foliar collapse and severe crop destruction under moist conditions.
+              </p>
+            </div>
+
+            <!-- Top 3 Probability Differential -->
+            <div class="differential-diagnosis-box">
+              <div class="diff-header">
+                <span class="diff-title">Differential Diagnosis (Top 3 Candidates)</span>
+                <span class="diff-model-tag">MobileNetV3-Small Softmax</span>
+              </div>
+              <div id="top3-list" class="diff-list">
+                <!-- Dynamically populated via JavaScript -->
+              </div>
+            </div>
+
+            <!-- Symptoms & Pathogenesis Causes Grid -->
+            <div class="symptoms-causes-grid">
+              <div class="info-card">
+                <div class="info-card-header">
+                  <span class="info-icon">🔍</span>
+                  <h4>Key Symptoms Observed</h4>
+                </div>
+                <ul id="symptoms-list" class="styled-info-list">
+                  <!-- Populated via JS -->
+                </ul>
+              </div>
+
+              <div class="info-card">
+                <div class="info-card-header">
+                  <span class="info-icon">⚠️</span>
+                  <h4>Pathogen Etiology & Triggers</h4>
+                </div>
+                <ul id="causes-list" class="styled-info-list">
+                  <!-- Populated via JS -->
+                </ul>
+              </div>
+            </div>
+
+            <!-- Dual Treatment Protocols (Tabs) -->
+            <div class="treatment-protocols-box">
+              <div class="treatment-nav-bar">
+                <div class="treatment-tabs-group" role="tablist">
+                  <button class="treatment-tab-btn active" id="tab-organic" role="tab" aria-selected="true">
+                    <span>🍃 Organic & Biological Controls</span>
+                  </button>
+                  <button class="treatment-tab-btn" id="tab-chemical" role="tab" aria-selected="false">
+                    <span>🧪 Chemical & Fungicidal Rx</span>
+                  </button>
+                </div>
+                <button id="copy-rx-btn" class="btn-copy-rx" title="Copy Treatment Plan">
+                  <span>📋 Copy Plan</span>
+                </button>
+              </div>
+
+              <!-- Organic Content -->
+              <div id="content-organic" class="treatment-tab-pane active" role="tabpanel">
+                <ul id="organic-list" class="treatment-checklist">
+                  <!-- Populated via JS -->
+                </ul>
+              </div>
+
+              <!-- Chemical Content -->
+              <div id="content-chemical" class="treatment-tab-pane" role="tabpanel" hidden>
+                <ul id="chemical-list" class="treatment-checklist chemical">
+                  <!-- Populated via JS -->
+                </ul>
+              </div>
+            </div>
+
+            <!-- Prevention & Cultural Management -->
+            <div class="prevention-box">
+              <div class="info-card-header">
+                <span class="info-icon">🛡️</span>
+                <h4>Preventive Field Measures</h4>
+              </div>
+              <ul id="prevention-list" class="prevention-grid-list">
+                <!-- Populated via JS -->
+              </ul>
+            </div>
+
+            <!-- Action Buttons Toolbar -->
+            <div class="result-action-toolbar">
+              <button id="btn-export-pdf" class="btn-action-primary">
+                <span class="btn-act-icon">📄</span>
+                <span>Export Diagnostic Report (PDF)</span>
+              </button>
+              <button id="btn-reset-scan" class="btn-action-secondary">
+                <span class="btn-act-icon">🔄</span>
+                <span>Analyze Another Leaf</span>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── 14 SUPPORTED CROPS CATALOG ── -->
+  <section class="section crops-catalog-section" id="crops">
+    <div class="section-container">
+      <div class="section-header">
+        <span class="section-eyebrow">Botanical Coverage</span>
+        <h2>14 Supported Crops & 38 Pathologies</h2>
+        <p>Trained and calibrated on the full benchmark PlantVillage botanical dataset</p>
+      </div>
+
+      <!-- Crops Filter Bar -->
+      <div class="crops-filter-bar">
+        <button class="crop-filter-btn active" data-filter="all">All Crops (14)</button>
+        <button class="crop-filter-btn" data-filter="solanaceae">Solanaceae (Tomatoes/Potatoes/Peppers)</button>
+        <button class="crop-filter-btn" data-filter="fruits">Orchard Fruits</button>
+        <button class="crop-filter-btn" data-filter="berries">Berries</button>
+        <button class="crop-filter-btn" data-filter="cereals">Cereals & Legumes</button>
+      </div>
+
+      <div class="crops-display-grid" id="crops-grid">
+        <!-- Rendered via JavaScript -->
+      </div>
+    </div>
+  </section>
+
+  <!-- ── SCAN HISTORY SLIDE-OUT DRAWER ── -->
+  <div id="history-drawer" class="history-drawer" aria-hidden="true">
+    <div class="drawer-backdrop" id="drawer-backdrop"></div>
+    <div class="drawer-content">
+      <div class="drawer-header">
+        <div class="drawer-title-group">
+          <h3>Recent Scan History</h3>
+          <span class="drawer-count" id="drawer-count-badge">0 saved</span>
+        </div>
+        <div class="drawer-actions">
+          <button id="btn-clear-history" class="btn-clear-history" title="Clear All History">Clear</button>
+          <button id="btn-close-drawer" class="btn-close-drawer" aria-label="Close History Drawer">✕</button>
+        </div>
+      </div>
+
+      <div class="drawer-body" id="history-list-container">
+        <div class="history-empty" id="history-empty-view">
+          <span class="history-empty-icon">📂</span>
+          <p>No recent scans yet. Your diagnostic history will be stored here locally.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── FOOTER ── -->
+  <footer class="footer">
+    <div class="footer-container">
+      <div class="footer-brand-row">
+        <div class="footer-brand">
+          <span class="symbol-leaf">🌿</span>
+          <span class="footer-brand-title">CropGuardian AI</span>
+        </div>
+        <p class="footer-tagline">
+          Empowering farmers, agronomists, and researchers with state-of-the-art computer vision pathology.
+        </p>
+      </div>
+
+      <div class="footer-badge-strip">
+        <span class="ft-chip">EfficientNetV2-S Architecture</span>
+        <span class="ft-chip">PyTorch 2.0 Engine</span>
+        <span class="ft-chip">PlantVillage Standard</span>
+        <span class="ft-chip">Zero-Latency Client Fallback</span>
+      </div>
+
+      <div class="footer-disclaimer">
+        Disclaimer: CropGuardian is an AI decision support tool for agricultural management. Confirm critical chemical application dosages with your certified local agricultural extension agency.
+      </div>
+
+      <div class="footer-copyright">
+        © 2026 CropGuardian AI. Engineered for Global Agronomic Security.
+      </div>
+    </div>
+  </footer>
+
+  <!-- ── AUTHENTICATION MODAL (SIGN IN / REGISTER WITH MONGODB) ── -->
+  <div class="auth-modal-backdrop" id="auth-modal" hidden>
+    <div class="auth-modal-card" role="dialog" aria-modal="true" aria-labelledby="auth-title">
+      <button class="auth-close-btn" id="auth-close-btn" aria-label="Close dialog">✕</button>
+      
+      <div class="auth-header">
+        <div class="auth-icon-badge">🌱</div>
+        <h3 id="auth-title">Sign In to CropGuardian</h3>
+        <p id="auth-subtitle">Access cloud telemetry, save pathology scans, and sync field records across devices.</p>
+        
+        <!-- Live Storage Engine Indicator -->
+        <div class="auth-db-status" id="auth-db-status">
+          <span class="db-dot"></span>
+          <span id="db-status-text">Connected to MongoDB Database</span>
+        </div>
+      </div>
+
+      <!-- Auth Tabs: Sign In / Create Account -->
+      <div class="auth-tabs">
+        <button class="auth-tab active" id="tab-signin-btn">Sign In</button>
+        <button class="auth-tab" id="tab-signup-btn">Create Account</button>
+      </div>
+
+      <!-- Sign In Form -->
+      <form id="signin-form" class="auth-form">
+        <div class="form-group">
+          <label for="signin-email">Email Address</label>
+          <input type="email" id="signin-email" placeholder="farmer@agriculture.com" required autocomplete="email" />
+        </div>
+        <div class="form-group">
+          <label for="signin-password">Password</label>
+          <input type="password" id="signin-password" placeholder="••••••••" required autocomplete="current-password" />
+        </div>
+        <button type="submit" class="btn-auth-submit" id="btn-submit-signin">
+          <span>Sign In to Account</span>
+          <span class="submit-spinner" hidden></span>
+        </button>
+      </form>
+
+      <!-- Register Form -->
+      <form id="signup-form" class="auth-form" hidden>
+        <div class="form-group">
+          <label for="signup-name">Full Name</label>
+          <input type="text" id="signup-name" placeholder="Ramesh Patel" required autocomplete="name" />
+        </div>
+        <div class="form-group">
+          <label for="signup-email">Email Address</label>
+          <input type="email" id="signup-email" placeholder="farmer@agriculture.com" required autocomplete="email" />
+        </div>
+        <div class="form-group">
+          <label for="signup-password">Create Password</label>
+          <input type="password" id="signup-password" placeholder="Minimum 6 characters" required minlength="6" autocomplete="new-password" />
+        </div>
+        <div class="form-group">
+          <label for="signup-role">Role / Specialization</label>
+          <select id="signup-role">
+            <option value="Agronomist / Farmer">Agronomist / Farmer</option>
+            <option value="Agricultural Researcher">Agricultural Researcher</option>
+            <option value="Extension Officer">Extension Officer</option>
+            <option value="Commercial Plantation Manager">Commercial Plantation Manager</option>
+          </select>
+        </div>
+        <button type="submit" class="btn-auth-submit" id="btn-submit-signup">
+          <span>Create Account via MongoDB</span>
+          <span class="submit-spinner" hidden></span>
+        </button>
+      </form>
+
+      <div class="auth-footer-note">
+        🔒 Passwords hashed securely with 12-round bcrypt. Stored in MongoDB.
+      </div>
+    </div>
+  </div>
+
+  <!-- ── WELCOME LANGUAGE SELECTION MODAL ── -->
+  <div id="language-modal-backdrop" class="lang-modal-backdrop" hidden>
+    <div class="lang-modal-card">
+      <div class="lang-modal-header">
+        <div class="lang-modal-symbol">🌐</div>
+        <h3>Choose Your Language</h3>
+        <p>अपनी भाषा चुनें / اپنی زبان منتخب کریں / Select your preferred language for instant translation of all diagnoses, text, and prescriptions.</p>
+      </div>
+      <div class="lang-modal-grid">
+        <button class="lang-choice-btn" data-lang="en">
+          <span class="lang-flag">🇬🇧</span>
+          <span class="lang-name">English</span>
+          <span class="lang-native">English</span>
+        </button>
+        <button class="lang-choice-btn" data-lang="hi">
+          <span class="lang-flag">🇮🇳</span>
+          <span class="lang-name">Hindi</span>
+          <span class="lang-native">हिंदी</span>
+        </button>
+        <button class="lang-choice-btn" data-lang="bn">
+          <span class="lang-flag">🇮🇳</span>
+          <span class="lang-name">Bengali</span>
+          <span class="lang-native">বাংলা</span>
+        </button>
+        <button class="lang-choice-btn" data-lang="te">
+          <span class="lang-flag">🇮🇳</span>
+          <span class="lang-name">Telugu</span>
+          <span class="lang-native">తెలుగు</span>
+        </button>
+        <button class="lang-choice-btn" data-lang="mr">
+          <span class="lang-flag">🇮🇳</span>
+          <span class="lang-name">Marathi</span>
+          <span class="lang-native">मराठी</span>
+        </button>
+        <button class="lang-choice-btn" data-lang="ta">
+          <span class="lang-flag">🇮🇳</span>
+          <span class="lang-name">Tamil</span>
+          <span class="lang-native">தமிழ்</span>
+        </button>
+        <button class="lang-choice-btn" data-lang="gu">
+          <span class="lang-flag">🇮🇳</span>
+          <span class="lang-name">Gujarati</span>
+          <span class="lang-native">ગુજરાતી</span>
+        </button>
+        <button class="lang-choice-btn" data-lang="kn">
+          <span class="lang-flag">🇮🇳</span>
+          <span class="lang-name">Kannada</span>
+          <span class="lang-native">ಕನ್ನಡ</span>
+        </button>
+        <button class="lang-choice-btn" data-lang="pa">
+          <span class="lang-flag">🇮🇳</span>
+          <span class="lang-name">Punjabi</span>
+          <span class="lang-native">ਪੰਜਾਬੀ</span>
+        </button>
+        <button class="lang-choice-btn" data-lang="ml">
+          <span class="lang-flag">🇮🇳</span>
+          <span class="lang-name">Malayalam</span>
+          <span class="lang-native">മലയാളം</span>
+        </button>
+        <button class="lang-choice-btn" data-lang="es">
+          <span class="lang-flag">🇪🇸</span>
+          <span class="lang-name">Spanish</span>
+          <span class="lang-native">Español</span>
+        </button>
+        <button class="lang-choice-btn" data-lang="fr">
+          <span class="lang-flag">🇫🇷</span>
+          <span class="lang-name">French</span>
+          <span class="lang-native">Français</span>
+        </button>
+        <button class="lang-choice-btn" data-lang="pt">
+          <span class="lang-flag">🇵🇹</span>
+          <span class="lang-name">Portuguese</span>
+          <span class="lang-native">Português</span>
+        </button>
+        <button class="lang-choice-btn" data-lang="ar">
+          <span class="lang-flag">🇸🇦</span>
+          <span class="lang-name">Arabic</span>
+          <span class="lang-native">العربية</span>
+        </button>
+        <button class="lang-choice-btn" data-lang="zh-CN">
+          <span class="lang-flag">🇨🇳</span>
+          <span class="lang-name">Chinese</span>
+          <span class="lang-native">中文</span>
+        </button>
+        <button class="lang-choice-btn" data-lang="ru">
+          <span class="lang-flag">🇷🇺</span>
+          <span class="lang-name">Russian</span>
+          <span class="lang-native">Русский</span>
+        </button>
+      </div>
+      <div class="lang-modal-footer">
+        <button id="btn-skip-lang" class="btn-skip-lang">Continue in English</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Hidden Google Translate Element Anchor -->
+  <div id="google_translate_element" style="display:none;"></div>
+
+  <!-- Floating Toast Notification System -->
+  <div id="toast-container" class="toast-container" aria-live="assertive"></div>
+
+  <!-- Three.js 3D Engine & OrbitControls for 360 Leaf Inspection -->
+  <script src="three.min.js"></script>
+  <script src="OrbitControls.js"></script>
+
+  <!-- Google Translate Translation Engine Script -->
+  <script type="text/javascript">
+    function googleTranslateElementInit() {
+      new google.translate.TranslateElement({
+        pageLanguage: 'en',
+        autoDisplay: false,
+        layout: google.translate.TranslateElement.InlineLayout.SIMPLE
+      }, 'google_translate_element');
+    }
+  </script>
+  <script type="text/javascript" src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+
+  <!-- Application Logic -->
+  <script src="app.js"></script>
+</body>
+</html>
